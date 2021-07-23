@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QIcon
+from PyQt5.QtTest import QTest
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog, QSlider
 from PyQt5.uic import loadUi
 from main import main
@@ -98,33 +98,82 @@ class MainWindow(QDialog):
         self._filename_input.setText(imgpath)
 
     def startmain(self):
+
+        status1 = "Status des Klassifikators: Running"
+        status2 = "Status des Klassifikators: Berechnung des ersten Threshold erfolgreich."
+        status3 = "Status des Klassifikators: Berechnung des zweiten Threshold erfolgreich"
+        status4 = "Status des Klassifikators: Beendet"
+        
+        self._status_field.append(status1)
+        QTest.qWait(1000)
         pathlist = self.getpaths()
         temperatures = self.getslidervalue()
+
         th1 = temperatures[0]
+        th1str = str(th1)
         th2 = temperatures[1]
+        th2str = str(th2)
+
         filepath = pathlist[0]
         outputPath = pathlist[1]
+
         threshold_pointer = self.checkforthresh()
         if threshold_pointer == 0:
-            self._status_display.setText("Es wurde kein Kameramodus gewählt.")
-
+            self._status_display.append("Es wurde kein Kameramodus gewählt.")
         elif threshold_pointer == 1:
             threshold1 = firstmode(th1)
-            main(filepath, threshold1, outputPath)
+            threshold1str = str(threshold1)
+            self._status_display.append("Der erste Threshold wurde auf "+th1str+"°C ("+ threshold1str +" dn) gesetzt")
+            log1 = main(filepath, threshold1, outputPath)
+            for x in log1:
+                self._status_display.append(x)
+            self._status_field.append(status2)
+            QTest.qWait(1000)
             threshold2 = firstmode(th2)
-            main(filepath, threshold2, outputPath)
+            threshold2str = str(threshold2)
+            self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            log2 = main(filepath, threshold2, outputPath)
+            for y in log2:
+                self._status_display.append(y)
+            self._status_field.append(status3)
+            self._status_field.append(status4)
 
         elif threshold_pointer == 2:
             threshold1 = secondmode(th1)
-            main(filepath, threshold1, outputPath)
+            threshold1str = str(threshold1)
+            self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
+            log1 = main(filepath, threshold1, outputPath)
+            for x in log1:
+                self._status_display.append(x)
+            self._status_field.append(status2)
+            QTest.qWait(1000)
             threshold2 = secondmode(th2)
-            main(filepath, threshold2, outputPath)
+            threshold2str = str(threshold2)
+            self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            log2 = main(filepath, threshold2, outputPath)
+            for y in log2:
+                self._status_display.append(y)
+            self._status_field.append(status3)
+            self._status_field.append(status4)
 
         elif threshold_pointer == 3:
             threshold1 = thirdmode(th1)
-            main(filepath, threshold1, outputPath)
+            threshold1str = str(threshold1)
+            self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
+            log1 = main(filepath, threshold1, outputPath)
+            for x in log1:
+                self._status_display.append(x)
+            self._status_field.append(status2)
+            QTest.qWait(1000)
             threshold2 = thirdmode(th2)
-            main(filepath, threshold2, outputPath)
+            threshold2str = str(threshold2)
+            self._status_display.append("\n"+"============================================================================================"+"\n"+
+                                        "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            log2 = main(filepath, threshold2, outputPath)
+            for y in log2:
+                self._status_display.append(y)
+            self._status_field.append(status3)
+            self._status_field.append(status4)
 
 
 app = QApplication(sys.argv)
@@ -132,7 +181,7 @@ mainwindow = MainWindow()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
 widget.setFixedWidth(960)
-widget.setFixedHeight(964)
+widget.setFixedHeight(1000)
 widget.show()
 
 sys.exit(app.exec_())

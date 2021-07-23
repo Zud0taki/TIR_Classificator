@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>960</width>
-    <height>1003</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -484,7 +484,7 @@
     <string>Start</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowser_2">
+  <widget class="QTextBrowser" name="_status_field">
    <property name="geometry">
     <rect>
      <x>20</x>

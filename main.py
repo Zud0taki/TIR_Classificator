@@ -17,6 +17,8 @@ from CheckLinearity import *
 # main method #
 ###############
 def main(filepath, threshold, outputPath):
+    returnlist = []
+    returnlist.clear()
     imgpath = glob.glob(r"" + filepath + "/*.tif")
     img_input = []
     for img_array_counter in imgpath:
@@ -110,7 +112,8 @@ def main(filepath, threshold, outputPath):
             # Check the pixels #
             ####################
             counter = 0
-            print(txt_input[image_text_counter])
+            #print(txt_input[image_text_counter])
+            returnlist.append(str(txt_input[image_text_counter]))
             transformed_boundary_points = []
             # bla = checked_label_list[counter]
             while counter <= (checked_label_list.__len__() - 1):
@@ -123,7 +126,8 @@ def main(filepath, threshold, outputPath):
                 # Concave Hull from points#
                 ###########################
                 counterbla = 0
-                print(checked_label_list[counter])
+                #print(checked_label_list[counter])
+                returnlist.append(str(checked_label_list[counter]))
                 counterbla += 1
                 # ch = ConcaveHull()
                 # pts from above
@@ -147,11 +151,11 @@ def main(filepath, threshold, outputPath):
                         plt.scatter(x[0], x[1], color='red')
                     # cv.waitKey()
                     # cv.imshow('label_img', label_img)
-                    plt.show()
+                    # plt.show()
                     # boundary_points is a subset of pts corresponding to the concave hull
                 else:
-                    print(
-                        "Das Label musste übersprungen werden, da es nicht genug Pixel gab, um das Polygon zu aufzuspannen.")
+                    #print("Das Label musste übersprungen werden, da es nicht genug Pixel gab, um das Polygon zu aufzuspannen.")
+                    returnlist.append("Das Label musste übersprungen werden, da es nicht genug Pixel gab, um das Polygon zu aufzuspannen.")
                     pts.clear()
                 counter += 1
 
@@ -159,4 +163,7 @@ def main(filepath, threshold, outputPath):
         for item in acml_list:
             f.write("%s\n" % item)
     ShapeWrite(acml_list, threshold, outputPath)
+
+    return (returnlist)
+
 
