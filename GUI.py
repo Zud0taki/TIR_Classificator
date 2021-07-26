@@ -14,12 +14,18 @@ class MainWindow(QDialog):
         # self.setWindowIcon(QIcon("Logo.png"))
         self._browse_files_btn.clicked.connect(self.browseimages)
         self._browse_output_btn.clicked.connect(self.browseoutput)
-        self._start_btn.clicked.connect(self.startmain)
+        self._start_btn.clicked.connect(self.startclassification)
         self._threshold_slider.sliderMoved.connect(self.getslidervalue)
         self._threshold_slider_2.sliderMoved.connect(self.getslidervalue)
         self._profile1_radio.toggled.connect(lambda: self.checkradiostate(self._profile1_radio))
         self._profile2_radio.toggled.connect(lambda: self.checkradiostate(self._profile2_radio))
         self._profile3_radio.toggled.connect(lambda: self.checkradiostate(self._profile3_radio))
+        self._classificationb_selection_combox.currentIndexChanged.connect(self.getcombovalue)
+
+    def getcombovalue(self):
+        ComboValue = self._classificationb_selection_combox.currentIndex()
+        #print(ComboValue)
+        return ComboValue
 
     def loggingDisplay(self, message):
         self._status_display.append(message)
@@ -97,12 +103,20 @@ class MainWindow(QDialog):
         imgpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Image Folder')
         self._filename_input.setText(imgpath)
 
-    def startmain(self):
+    def startclassification(self):
 
         status1 = "Status des Klassifikators: Running"
         status2 = "Status des Klassifikators: Berechnung des ersten Threshold erfolgreich."
         status3 = "Status des Klassifikators: Berechnung des zweiten Threshold erfolgreich"
         status4 = "Status des Klassifikators: Beendet"
+
+        comboValue = self.getcombovalue()
+        if comboValue == 0:
+            print ("Volle Klassifikation")
+        elif comboValue == 1:
+            print ("Only Threshold")
+
+
         
         self._status_field.append(status1)
         QTest.qWait(1000)
@@ -114,7 +128,7 @@ class MainWindow(QDialog):
         th2 = temperatures[1]
         th2str = str(th2)
 
-        filepath = pathlist[0]
+        filePath = pathlist[0]
         outputPath = pathlist[1]
 
         threshold_pointer = self.checkforthresh()
@@ -124,7 +138,7 @@ class MainWindow(QDialog):
             threshold1 = firstmode(th1)
             threshold1str = str(threshold1)
             self._status_display.append("Der erste Threshold wurde auf "+th1str+"°C ("+ threshold1str +" dn) gesetzt")
-            log1 = main(filepath, threshold1, outputPath)
+            log1 = main(filePath, threshold1, outputPath)
             for x in log1:
                 self._status_display.append(x)
             self._status_field.append(status2)
@@ -132,7 +146,7 @@ class MainWindow(QDialog):
             threshold2 = firstmode(th2)
             threshold2str = str(threshold2)
             self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
-            log2 = main(filepath, threshold2, outputPath)
+            log2 = main(filePath, threshold2, outputPath)
             for y in log2:
                 self._status_display.append(y)
             self._status_field.append(status3)
@@ -142,7 +156,7 @@ class MainWindow(QDialog):
             threshold1 = secondmode(th1)
             threshold1str = str(threshold1)
             self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
-            log1 = main(filepath, threshold1, outputPath)
+            log1 = main(filePath, threshold1, th1, outputPath)
             for x in log1:
                 self._status_display.append(x)
             self._status_field.append(status2)
@@ -150,7 +164,7 @@ class MainWindow(QDialog):
             threshold2 = secondmode(th2)
             threshold2str = str(threshold2)
             self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
-            log2 = main(filepath, threshold2, outputPath)
+            log2 = main(filePath, threshold2, th2, outputPath)
             for y in log2:
                 self._status_display.append(y)
             self._status_field.append(status3)
@@ -160,7 +174,7 @@ class MainWindow(QDialog):
             threshold1 = thirdmode(th1)
             threshold1str = str(threshold1)
             self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
-            log1 = main(filepath, threshold1, outputPath)
+            log1 = main(filePath, threshold1, outputPath)
             for x in log1:
                 self._status_display.append(x)
             self._status_field.append(status2)
@@ -169,7 +183,7 @@ class MainWindow(QDialog):
             threshold2str = str(threshold2)
             self._status_display.append("\n"+"============================================================================================"+"\n"+
                                         "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
-            log2 = main(filepath, threshold2, outputPath)
+            log2 = main(filePath, threshold2, outputPath)
             for y in log2:
                 self._status_display.append(y)
             self._status_field.append(status3)

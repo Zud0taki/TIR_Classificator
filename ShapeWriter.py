@@ -3,8 +3,8 @@ import fiona
 import pandas as pd
 
 
-def ShapeWrite(acml_list, threshold, outputPath):
-    polygon_name = r"" + outputPath + "/" + str(threshold) + ".shp"
+def ShapeWrite(acml_list, threshold, temperature, outputPath):
+    polygon_name = r"" + outputPath + "/" + str(threshold) + "dn - " + str(temperature) + "°C" + ".shp"
     xy_list = []
     schema = {
         'geometry': 'Polygon',
