@@ -39,12 +39,12 @@
     <string>Browse</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="_status_display">
+  <widget class="QTextBrowser" name="_browse_status">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>740</y>
-     <width>911</width>
+     <width>921</width>
      <height>241</height>
     </rect>
    </property>
@@ -783,6 +783,19 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="_log_btn">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>480</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
    </property>
   </widget>
  </widget>

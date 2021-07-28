@@ -1,13 +1,7 @@
-import cv2
-import numpy as np
-
 import cv2 as cv
 import random
-import matplotlib.pyplot as plt
-from ConcaveHull import ConcaveHull
 import glob
 from Homography import *
-from ShapeWriter import *
 from CheckNeighborhood import *
 from CheckLinearity import *
 from PIL import Image

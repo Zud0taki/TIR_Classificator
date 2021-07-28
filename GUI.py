@@ -1,17 +1,20 @@
 import sys
+from FullClassificator import *
+import cv2
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import pyqtSignal, QObject
 from PyQt5.QtTest import QTest
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog, QSlider
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog, QSlider, QMainWindow
 from PyQt5.uic import loadUi
 from main import main
 from CameraModes import *
 
 
 class MainWindow(QDialog):
-    def __init__(self):
+    def __init__(self, parent=None):
         super(MainWindow, self).__init__()
         loadUi("Classificator.ui", self)
-        # self.setWindowIcon(QIcon("Logo.png"))
+        self.FClassificator = FullClassification()
         self._browse_files_btn.clicked.connect(self.browseimages)
         self._browse_output_btn.clicked.connect(self.browseoutput)
         self._start_btn.clicked.connect(self.startclassification)
@@ -24,7 +27,7 @@ class MainWindow(QDialog):
 
     def getcombovalue(self):
         ComboValue = self._classificationb_selection_combox.currentIndex()
-        #print(ComboValue)
+        # print(ComboValue)
         return ComboValue
 
     def loggingDisplay(self, message):
@@ -112,12 +115,10 @@ class MainWindow(QDialog):
 
         comboValue = self.getcombovalue()
         if comboValue == 0:
-            print ("Volle Klassifikation")
+            print("Volle Klassifikation")
         elif comboValue == 1:
-            print ("Only Threshold")
+            print("Only Threshold")
 
-
-        
         self._status_field.append(status1)
         QTest.qWait(1000)
         pathlist = self.getpaths()
@@ -133,61 +134,89 @@ class MainWindow(QDialog):
 
         threshold_pointer = self.checkforthresh()
         if threshold_pointer == 0:
-            self._status_display.append("Es wurde kein Kameramodus gewählt.")
+            self._browse_status.append("Es wurde kein Kameramodus gewählt.")
         elif threshold_pointer == 1:
             threshold1 = firstmode(th1)
             threshold1str = str(threshold1)
-            self._status_display.append("Der erste Threshold wurde auf "+th1str+"°C ("+ threshold1str +" dn) gesetzt")
+            self._browse_status.append(
+                "Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
             log1 = main(filePath, threshold1, outputPath)
             for x in log1:
-                self._status_display.append(x)
+                self._browse_status.append(x)
             self._status_field.append(status2)
             QTest.qWait(1000)
             threshold2 = firstmode(th2)
             threshold2str = str(threshold2)
-            self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            self._browse_status.append(
+                "\n" + "============================================================================================" + "\n" + "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
             log2 = main(filePath, threshold2, outputPath)
             for y in log2:
-                self._status_display.append(y)
+                self._browse_status.append(y)
             self._status_field.append(status3)
             self._status_field.append(status4)
 
         elif threshold_pointer == 2:
             threshold1 = secondmode(th1)
             threshold1str = str(threshold1)
-            self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
-            log1 = main(filePath, threshold1, th1, outputPath)
-            for x in log1:
-                self._status_display.append(x)
-            self._status_field.append(status2)
-            QTest.qWait(1000)
-            threshold2 = secondmode(th2)
-            threshold2str = str(threshold2)
-            self._status_display.append("\n"+"============================================================================================"+"\n"+"Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
-            log2 = main(filePath, threshold2, th2, outputPath)
-            for y in log2:
-                self._status_display.append(y)
-            self._status_field.append(status3)
-            self._status_field.append(status4)
+            self._browse_status.append(
+                "Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
+            self.FClassificator.trigger.connect(self.getandwritelog)
+            self.FClassificator.run(filePath, threshold1, th1, outputPath)
+            #log1 = main(filePath, threshold1, th1, outputPath)
+            # for x in log1:
+            #     self._browse_status.append(x)
+            # self._status_field.append(status2)
+            # QTest.qWait(1000)
+            # threshold2 = secondmode(th2)
+            # threshold2str = str(threshold2)
+            # self._browse_status.append(
+            #     "\n" + "============================================================================================" + "\n" + "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            # #log2 = main(filePath, threshold2, th2, outputPath)
+            # for y in log2:
+            #     self._browse_status.append(y)
+            # self._status_field.append(status3)
+            # self._status_field.append(status4)
 
         elif threshold_pointer == 3:
             threshold1 = thirdmode(th1)
             threshold1str = str(threshold1)
-            self._status_display.append("Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
+            self._browse_status.append(
+                "Der erste Threshold wurde auf " + th1str + "°C (" + threshold1str + " dn) gesetzt")
             log1 = main(filePath, threshold1, outputPath)
             for x in log1:
-                self._status_display.append(x)
+                self._browse_status.append(x)
             self._status_field.append(status2)
             QTest.qWait(1000)
             threshold2 = thirdmode(th2)
             threshold2str = str(threshold2)
-            self._status_display.append("\n"+"============================================================================================"+"\n"+
-                                        "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
+            self._browse_status.append(
+                "\n" + "============================================================================================" + "\n" +
+                "Der zweite Threshold wurde auf " + th2str + "°C (" + threshold2str + " dn) gesetzt")
             log2 = main(filePath, threshold2, outputPath)
             for y in log2:
-                self._status_display.append(y)
+                self._browse_status.append(y)
             self._status_field.append(status3)
             self._status_field.append(status4)
+
+    def getandwritelog(self):
+        dummy = self.FClassificator.logstring
+        self._browse_status.append(self.FClassificator.logstring)
+        cv.waitKey()
+
+
+# class FullClassification(QObject):
+#     trigger = pyqtSignal()
+#     threshold1 = 0
+#     threshold2 = 0
+#     inputpath = ""
+#     outputpath = ""
+#     logstring = ""
+#
+#     def test(self):
+#         self.logstring = "Test"
+#         self.trigger.emit()
+#         cv2.waitKey()
+
 
 
 app = QApplication(sys.argv)
