@@ -44,7 +44,7 @@
     <rect>
      <x>20</x>
      <y>740</y>
-     <width>921</width>
+     <width>501</width>
      <height>241</height>
     </rect>
    </property>
@@ -52,8 +52,8 @@
   <widget class="QPushButton" name="_start_btn">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>700</y>
+     <x>640</x>
+     <y>650</y>
      <width>221</width>
      <height>31</height>
     </rect>
@@ -489,7 +489,7 @@
     <rect>
      <x>20</x>
      <y>700</y>
-     <width>451</width>
+     <width>501</width>
      <height>31</height>
     </rect>
    </property>
@@ -783,6 +783,33 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="_processing_preview">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>740</y>
+     <width>381</width>
+     <height>241</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="_preview_field">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>700</y>
+     <width>381</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;Processing-Preview:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

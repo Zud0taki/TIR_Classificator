@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def checkLinearity(pts):
 
     coordinate_1 = np.array(pts[0])

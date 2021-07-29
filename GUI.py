@@ -1,10 +1,8 @@
 import sys
-from FullClassificator import *
-import cv2
+from main import *
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSignal, QObject
 from PyQt5.QtTest import QTest
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog, QSlider, QMainWindow
+from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 from main import main
 from CameraModes import *
@@ -14,7 +12,7 @@ class MainWindow(QDialog):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__()
         loadUi("Classificator.ui", self)
-        self.FClassificator = FullClassification()
+        self.FClassificator = main()
         self._browse_files_btn.clicked.connect(self.browseimages)
         self._browse_output_btn.clicked.connect(self.browseoutput)
         self._start_btn.clicked.connect(self.startclassification)
@@ -199,24 +197,8 @@ class MainWindow(QDialog):
             self._status_field.append(status4)
 
     def getandwritelog(self):
-        dummy = self.FClassificator.logstring
         self._browse_status.append(self.FClassificator.logstring)
         cv.waitKey()
-
-
-# class FullClassification(QObject):
-#     trigger = pyqtSignal()
-#     threshold1 = 0
-#     threshold2 = 0
-#     inputpath = ""
-#     outputpath = ""
-#     logstring = ""
-#
-#     def test(self):
-#         self.logstring = "Test"
-#         self.trigger.emit()
-#         cv2.waitKey()
-
 
 
 app = QApplication(sys.argv)

@@ -1,6 +1,4 @@
-from typing import List, Any
 import fiona
-import pandas as pd
 
 
 def ShapeWrite(acml_list, threshold, temperature, outputPath):

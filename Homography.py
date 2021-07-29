@@ -11,7 +11,6 @@ def HomographyOfPicture(img_src, pts_dst):
     srcshape = img_src.shape
     # Four corners of the src_img in pxl
     pts_src = np.array([[0, 0], [srcshape[1], 0], [srcshape[1], srcshape[0]], [0, srcshape[0]]])
-    # pts_dst = np.array([[53.27451389, 11.17915012], [53.26655878, 11.17956069], [53.26653019, 11.17806564], [53.27448475, 11.17764306]])
     # Calculate Homography
     h, status = cv2.findHomography(pts_src, pts_dst)
     return h
