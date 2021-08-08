@@ -2,7 +2,7 @@ import fiona
 
 
 def ShapeWrite(acml_list, threshold, temperature, outputPath):
-    polygon_name = r"" + outputPath + "/" + str(threshold) + "dn - " + str(temperature) + "°C" + ".shp"
+    polygon_name = r"" + outputPath + "/" + str(threshold) + "dn - " + "above" +str(temperature) + "°C" + ".shp"
     xy_list = []
     schema = {
         'geometry': 'Polygon',

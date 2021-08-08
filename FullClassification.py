@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QObject, pyqtSignal
+
 from CheckNeighborhood import *
 import random
 from CheckLinearity import *
@@ -6,6 +8,10 @@ import matplotlib.pyplot as plt
 from LineSplitHomography import *
 from TriplePixelCheck import *
 from Export import *
+
+class Classificator(QObject):
+    trigger = pyqtSignal()
+    logstring=""
 
 
 def processPicture(img_input, txt_input, threshold, returnlist, acml_list, temperature, outputpath):
@@ -52,11 +58,15 @@ def processPicture(img_input, txt_input, threshold, returnlist, acml_list, tempe
             ########################################
             checked_label_list = triplePixelCheck(label, label_mat)
 
+
             ####################
             # Check the pixels #
             ####################
             counter = 0
             #TODO: Signal with Image Name to Status Display
+            imgname = str(txt_input[image_text_counter])
+            Classificator.logstring = "Bild: " + imgname
+            #Classificator.trigger.emit()
             returnlist.append(str(txt_input[image_text_counter]))
             transformed_boundary_points = []
             while counter <= (checked_label_list.__len__() - 1):
@@ -70,6 +80,9 @@ def processPicture(img_input, txt_input, threshold, returnlist, acml_list, tempe
                 ###########################
                 # print(checked_label_list[counter])
                 returnlist.append(str(checked_label_list[counter]))
+                imgname = str(txt_input[image_text_counter])
+                Classificator.logstring = "Bild: " + imgname
+
                 # pts from above
                 nonlinear = checkLinearity(pts)
                 # ch.loadpoints(pts)
@@ -100,13 +113,8 @@ def processPicture(img_input, txt_input, threshold, returnlist, acml_list, tempe
 
         #insert here Export
     export(acml_list, threshold, temperature, outputpath)
-        # with open('Shapefile.txt', 'w') as f:
-        #     for item in acml_list:
-        #         f.write("%s\n" % item)
-        # ShapeWrite(acml_list, threshold, temperature, outputpath)
-
         # for x in range(len(returnlist)):
         #     self.logstring = str(returnlist[x])
         #     self.trigger.emit()
-    return (returnlist)
+
 

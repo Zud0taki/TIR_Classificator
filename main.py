@@ -28,15 +28,11 @@ class main(QObject):
         img_input = readImages(filepath)
         txt_input = readTxt(filepath)
         if checkEqualLength(img_input, txt_input):
-            # read the images that should be checked by the algorithm
-            acml_list = []
-            processPicture(img_input, txt_input, threshold, returnlist, acml_list, temperature, outputpath)
+            if checkEqualNames(filepath):
+                acml_list = []
+                processPicture(img_input, txt_input, threshold, returnlist, acml_list, temperature, outputpath)
 
-        #     with open('Shapefile.txt', 'w') as f:
-        #         for item in acml_list:
-        #             f.write("%s\n" % item)
-        #     ShapeWrite(acml_list, threshold, temperature, outputpath)
-        #
+
         #     for x in range(len(returnlist)):
         #         self.logstring = str(returnlist[x])
         #         self.trigger.emit()
