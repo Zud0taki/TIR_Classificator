@@ -22,6 +22,9 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="text">
+    <string>C:\Users\julia\Desktop\Test</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="_browse_files_btn">
    <property name="geometry">
@@ -44,7 +47,7 @@
     <rect>
      <x>20</x>
      <y>740</y>
-     <width>501</width>
+     <width>911</width>
      <height>241</height>
     </rect>
    </property>
@@ -196,6 +199,15 @@
         </color>
        </brush>
       </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
      </active>
      <inactive>
       <colorrole role="WindowText">
@@ -327,6 +339,15 @@
       <colorrole role="ToolTipText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
          <red>0</red>
          <green>0</green>
          <blue>0</blue>
@@ -470,6 +491,15 @@
         </color>
        </brush>
       </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
      </disabled>
     </palette>
    </property>
@@ -489,7 +519,7 @@
     <rect>
      <x>20</x>
      <y>700</y>
-     <width>501</width>
+     <width>911</width>
      <height>31</height>
     </rect>
    </property>
@@ -512,6 +542,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="maximum">
     <number>500</number>
+   </property>
+   <property name="value">
+    <number>105</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -603,6 +636,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Mode 2:     0°C bis 500°C</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QRadioButton" name="_profile3_radio">
    <property name="geometry">
@@ -642,6 +678,9 @@ p, li { white-space: pre-wrap; }
      <width>191</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
    </property>
    <item>
     <property name="text">
@@ -683,7 +722,7 @@ p, li { white-space: pre-wrap; }
     <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string/>
+    <string>105</string>
    </property>
   </widget>
   <widget class="QLabel" name="_upperbound_label">
@@ -710,6 +749,9 @@ p, li { white-space: pre-wrap; }
      <width>451</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>C:\Users\julia\Desktop\Test</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="_output_request">
@@ -759,6 +801,9 @@ p, li { white-space: pre-wrap; }
    <property name="maximum">
     <number>500</number>
    </property>
+   <property name="value">
+    <number>150</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
@@ -782,34 +827,7 @@ p, li { white-space: pre-wrap; }
     <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="_processing_preview">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>740</y>
-     <width>381</width>
-     <height>241</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="_preview_field">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>700</y>
-     <width>381</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="html">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;Processing-Preview:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>150</string>
    </property>
   </widget>
  </widget>

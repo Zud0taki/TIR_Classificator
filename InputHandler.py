@@ -1,8 +1,11 @@
+# import necessary libraries
 import cv2 as cv
 import glob
 import numpy as np
 
 
+# define readImages
+# used to read the image input with the filepath
 def readImages(filepath):
     imgpath = glob.glob(r"" + filepath + "/*.tif")
     img_input = []
@@ -12,6 +15,8 @@ def readImages(filepath):
     return img_input
 
 
+# define readTxt
+# used to read the txt input with the filepath
 def readTxt(filepath):
     txtpath = glob.glob(r"" + filepath + "/*.txt")
     txt_input = []
@@ -19,7 +24,8 @@ def readTxt(filepath):
         txt_input.append(txt)
     return txt_input
 
-
+# define checkEqualLength
+# used to check if the image input and the text input are equally long
 def checkEqualLength(img_input, txt_input):
     if len(img_input) == len(txt_input):
         equallength = True
@@ -29,6 +35,8 @@ def checkEqualLength(img_input, txt_input):
     return equallength
 
 
+# define checkEqualNames
+# used to check if the images and txt-files have the same names
 def checkEqualNames(filepath):
     imgpath = glob.glob(r"" + filepath + "/*.tif")
     txtpath = glob.glob(r"" + filepath + "/*.txt")

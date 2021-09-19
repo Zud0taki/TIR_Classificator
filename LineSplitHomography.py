@@ -1,7 +1,9 @@
+# import necessary libraries and functions
 import numpy as np
 from Homography import *
 
-
+# define lineSplitHomography
+# used to split the txt-file and get the corner-real-world-coordinates
 def lineSplitHomography(file_in, img):
     lines = []
     for line in file_in:
@@ -25,5 +27,5 @@ def lineSplitHomography(file_in, img):
 
     pts_dst = np.array(
         [[float(x1), float(y1)], [float(x2), float(y2)], [float(x3), float(y3)], [float(x4), float(y4)]])
-    h = HomographyOfPicture(img, pts_dst)
+    h = homographyofpicture(img, pts_dst)
     return h

@@ -1,7 +1,7 @@
+# define checknbh - checking the neighborhood of labeled pixels
 def checknbh(img, label_mat, label, threshold, x, y):
     new_coords = [x, y]
     label_mat[y, x] = label
-    # test = len(new_coords) # check the length of the list
     # as long as the new_coords list is not zero = active -> check coordinates -> index and label them -> delete list with indices
     while not len(new_coords) == 0:
         indexX = len(new_coords) - 2
@@ -10,7 +10,7 @@ def checknbh(img, label_mat, label, threshold, x, y):
         checkY = new_coords[indexY]
         del new_coords[indexX:]
         label_mat[y, x] = label
-        # check in the neighborhood of 3x3
+        # check in the neighborhood of 3x3 pixels
         for i in range(3):
             for j in range(3):
                 currX = checkX - 1 + i
@@ -27,7 +27,5 @@ def checknbh(img, label_mat, label, threshold, x, y):
                     label_mat[currY, currX] = label
                     new_coords.append(currX)
                     new_coords.append(currY)
-
-        # dummyBreak = 1 #checkpoint
         # return the label matrix
     return label_mat

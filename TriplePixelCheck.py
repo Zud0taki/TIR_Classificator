@@ -1,6 +1,8 @@
+# import necessary libraries
 import numpy as np
 
-
+# define triplePixelCheck
+# used to check if a label in the label_mat has at least 3 members
 def triplePixelCheck(label, label_mat):
     label_counter = 1
     checked_label_list = []

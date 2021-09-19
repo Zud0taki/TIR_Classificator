@@ -1,43 +1,24 @@
-###################
-# Import libraries#
-###################
-import cv2 as cv
-import random
-import matplotlib.pyplot as plt
-from PyQt5.QtCore import QObject, pyqtSignal
-from ConcaveHull import ConcaveHull
-import glob
-from Homography import *
-from ShapeWriter import *
-from CheckNeighborhood import *
-from CheckLinearity import *
-from InputHandler import *
+# import necessary libraries and functions
+from GUI import *
 from FullClassification import *
 
 
-###############
-# main method #
-###############
-class main(QObject):
-    trigger = pyqtSignal()
-    logstring = ""
+# define the run method
+# used to start the process
+def run(self, filepath, threshold, temperature, outputpath):
+    # create Object from FullClassificator
+    FullClassificatorObj = FullClassificator()
+    # initialize returnlist
+    returnlist = []
+    returnlist.clear()
+    # read inputs
+    img_input = readImages(filepath)
+    txt_input = readTxt(filepath)
+    # check the equal length of the inputs
+    if checkEqualLength(img_input, txt_input):
+        # check the equality of the names
+        if checkEqualNames(filepath):
+            # if both true - start classification
+            acml_list = []
+            FullClassificatorObj.processPicture(img_input, txt_input, threshold, returnlist, acml_list, temperature, outputpath)
 
-    def run(self, filepath, threshold, temperature, outputpath):
-        returnlist = []
-        returnlist.clear()
-        img_input = readImages(filepath)
-        txt_input = readTxt(filepath)
-        if checkEqualLength(img_input, txt_input):
-            if checkEqualNames(filepath):
-                acml_list = []
-                processPicture(img_input, txt_input, threshold, returnlist, acml_list, temperature, outputpath)
-
-
-        #     for x in range(len(returnlist)):
-        #         self.logstring = str(returnlist[x])
-        #         self.trigger.emit()
-        #     return (returnlist)
-        # else:
-        #     returnlist.append(
-        #         "Die Anzahl der Textdateien und Bilder stimmt nicht überein. Bitte prüfen Sie den Inputordner.")
-        #     return returnlist

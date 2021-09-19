@@ -66,7 +66,7 @@ def main(filepath, threshold, temperature, outputPath):
                 #               [53.27448475, 11.17764306]])
                 pts_dst = np.array(
                     [[float(x1), float(y1)], [float(x2), float(y2)], [float(x3), float(y3)], [float(x4), float(y4)]])
-                h = HomographyOfPicture(img, pts_dst)
+                h = homographyofpicture(img, pts_dst)
 
                 # initiate the label with a zero
                 label = 0
@@ -141,7 +141,7 @@ def main(filepath, threshold, temperature, outputPath):
                         ch.loadpoints(pts)
                         ch.calculatehull()
                         boundary_points = np.vstack(ch.boundary.exterior.coords.xy).T
-                        transformed_boundary_points = HomographyPoints(h, boundary_points)
+                        transformed_boundary_points = homographypoints(h, boundary_points)
                         for x in range(len(boundary_points)):
                             acml_list.append([boundary_points[x], transformed_boundary_points[x]])
                         acml_list.append([[0, 0], [0, 0, 0]])
